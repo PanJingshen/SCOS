@@ -5,24 +5,6 @@
     android:id="@+id/mainscreen"
     android:orientation="vertical">
 
-    <Button
-        android:text="登录"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/login" />
-
-    <Button
-        android:text="点菜"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/order" />
-
-    <Button
-        android:text="查看菜单"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/orderlist" />
-
     <GridView
         android:id="@+id/gridview"
         android:layout_width="match_parent"

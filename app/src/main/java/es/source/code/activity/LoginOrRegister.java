@@ -9,6 +9,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 import java.util.regex.*;
 
+import es.source.code.model.User;
+
 public class LoginOrRegister extends AppCompatActivity implements View.OnClickListener {
 
     private EditText et_username,et_password;
@@ -89,22 +91,73 @@ public class LoginOrRegister extends AppCompatActivity implements View.OnClickLi
         Toast.makeText(LoginOrRegister.this, errortext, Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * 处理登录相关
+     */
+    private boolean login(){
+        String username=et_username.getText().toString();
+        String password=et_password.getText().toString();
+        if(!checkUsername(username)){
+            setError(0);
+            return false;
+        }
+        else if(!checkPassword(password)){
+            setError(1);
+            return false;
+        }
+        else {
+            Bundle bundle=new Bundle();
+            User loginuser=new User();
+            loginuser.setUserName(username);
+            loginuser.setPassword(password);
+            loginuser.setOldUser(true);
+            bundle.putSerializable("user", loginuser);
+            intentMainScreen.putExtra("toMainScreen","LoginSuccess");
+            intentMainScreen.putExtras(bundle);
+            startActivity(intentMainScreen);
+            return true;
+        }
+
+    }
+
+    /**
+     * 处理注册相关
+     */
+    private boolean register(){
+        String username=et_username.getText().toString();
+        String password=et_password.getText().toString();
+        if(!checkUsername(username)){
+            setError(0);
+            return false;
+        }
+        else if(!checkPassword(password)){
+            setError(1);
+            return false;
+        }
+        else {
+            Bundle bundle=new Bundle();
+            User registeruser=new User();
+            registeruser.setUserName(username);
+            registeruser.setPassword(password);
+            registeruser.setOldUser(false);
+            bundle.putSerializable("user", registeruser);
+            intentMainScreen.putExtra("toMainScreen","RegisterSuccess");
+            intentMainScreen.putExtras(bundle);
+            startActivity(intentMainScreen);
+            return true;
+        }
+
+    }
+
+
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.login:
-                if(!checkUsername(et_username.getText().toString()))
-                    setError(0);
-                else if(!checkPassword(et_password.getText().toString()))
-                    setError(1);
-                else{
-
-                    intentMainScreen.putExtra("toMainScreen","LoginSuccess");
-                    startActivity(intentMainScreen);
-                }
+                login();
                 break;
             case R.id.register:
-
+                register();
                 break;
             case R.id.btnBack:
                 intentMainScreen.putExtra("toMainScreen","Return");
